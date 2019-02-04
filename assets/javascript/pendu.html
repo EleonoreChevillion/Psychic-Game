@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //choose word randomly
+let randNum = Math.floor(Math.random() * celestial_bodies.length);
+let chosenWord = celestial_bodies[randNum];
+let underScore = [];
+let rightAnswer = [];
+let wrongAnswer = [];
+
+
+//dom manipulation
+let tempUnderScore = document.getElementById('underScore');
+let tempRightAnswer = document.getElementById('rightAnswer');
+let tempWrongAnswer = document.getElementById('wrongAnswer');
+
+
+
+//create underscore based on the word length
+
+let generateUnderscore = () => {
+   for (let i = 0; i < chosenWord.length; i++) {
+       underScore.push('_');
+   }
+   return underScore;
+}
+
+//get users guess
+document.addEventListener('keypress', (event) => {
+   let keyword = String.fromCharCode(event.keyCode);
+   if(keyword.indexOf(chosenWord) > -1) {
+       //if right push to rightAnswer array
+       rightAnswer.push(keyword);
+
+       // replace underscore with right letter
+       underScore[chosenWord.indexOf(keyword)] = keyword;
+       tempUnderScore[0].innerHTML = underScore.join(' ');
+       tempRightAnswer[0].innerHTML = rightAnswer.join(' ');
+       //check to see if right answer
+       if(underScore.join('') == chosenWord ) {
+           alert('You won!')
+       }
+       //if wrong push to wrongAnswer array
+   } else {
+       wrongAnswer.push(keyword);
+       tempWrongAnswer[0].innerHTML = wrongAnswer.join(' ');
+   }
+});
+
+tempUnderScore[0].innerHTML = generateUnderscore.join('');
+
+        </script>
+    
+</body>
+</html>
